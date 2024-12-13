@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Remoções</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #FF9900;
+            color: white;
+        }
+        .controls {
+            margin-bottom: 20px;
+        }
+        .filter, .add-row, .export-excel, .save-data {
+            padding: 10px 15px;
+            margin-right: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .filter:hover, .add-row:hover, .export-excel:hover, .save-data:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<h1><b>Formulário de Remoções de Pacientes</b></h1>
+
+<div class="controls">
+    <select id="filterEquipe" class="filter">
+        <option value="">Filtrar por Equipe ESF</option>
+        <option value="1 Girassol">1 Girassol</option>
+        <option value="2 Violeta">2 Violeta</option>
+        <option value="3 Lotus">3 Lotus</option>
+        <option value="4 Orquidea">4 Orquidea</option>
+        <option value="5 Lírio">5 Lírio</option>
+    </select>
+    <button class="filter" onclick="applyFilter()">Aplicar Filtro</button>
+    <button class="add-row" onclick="addRow()">Adicionar Nova Linha</button>
+    <button class="save-data" onclick="saveData()">Salvar Dados</button>
+    <button class="save-data" onclick="loadData()">Carregar Dados</button>
+</div>
+
+<table id="dataTable">
+    <thead>
+        <tr>
+            <th>Data/Hora de Remoção</th>
+            <th>Acionamento Extra</th>
+            <th>Origem da Ambulância</th>
+            <th>Data/Hora da Solicitação</th>
+            <th>Local/Solicitação</th>
+            <th>Classificação Inicial</th>
+            <th>Classificação Saída</th>
+            <th>Equipe ESF</th>
+            <th>Nome do Paciente</th>
+            <th>Data de Nascimento</th>
+            <th>Sexo</th>
+            <th>CID</th>
+            <th>Descrição do CID</th>
+            <th>Breve Descrição do Caso</th>
+            <th>Nome do Profissional Médico que Solicitou Remoção</th>
+            <th>Cargo (CBO) Profissional Médico Solicitante</th>
+            <th>Nome do Profissional que Acompanhou Remoção</th>
+            <th>Cargo (CBO) Profissional que Acompanhou Remoção</th>
+            <th>Destino da Ambulância</th>
+            <th>Tipo de Ambulância</th>
+            <th>Evasão</th>
+            <th>Paciente Retornou para Unidade</th>
+            <th>Data/Hora de Retorno da Equipe</th>
+            <th>Tempo Total da Remoção</th>
+            <th>Continuidade do Cuidado</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="datetime-local"></td>
+            <td>
+                <select>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                </select>
+            </td>
+            <td><input type="text" placeholder="Origem"></td>
+            <td><input type="datetime-local"></td>
+            <td><input type="text" placeholder="Local"></td>
+            <td>
+                <select>
+                    <option value="Verde">Verde</option>
+                    <option value="Amarelo">Amarelo</option>
+                    <option value="Vermelho">Vermelho</option>
+                </select>
+            </td>
+            <td>
+                <select>
+                    <option value="Verde">Verde</option>
+                    <option value="Amarelo">Amarelo</option>
+                    <option value="Vermelho">Vermelho</option>
+                </select>
+            </td>
+            <td>
+                <select>
+                    <option value="1 Girassol">1 Girassol</option>
+                    <option value="2 Violeta">2 Violeta</option>
+                    <option value="3 Lotus">3 Lotus</option>
+                    <option value="4 Orquidea">4 Orquidea</option>
+                    <option value="5 Lírio">5 Lírio</option>
+                </select>
+            </td>
+            <td><input type="text" placeholder="Nome do Paciente"></td>
+            <td><input type="date"></td>
+            <td>
+                <select>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                </select>
+            </td>
+            <td><input type="text" placeholder="CID"></td>
+            <td><input type="text" placeholder="Descrição do CID"></td>
+            <td><input type="text" placeholder="Breve Descrição"></td>
+            <td><input type="text" placeholder="Profissional Médico Solicitante"></td>
+            <td><input type="text" placeholder="Cargo (CBO) Médico Solicitante"></td>
+            <td><input type="text" placeholder="Profissional que Acompanhou"></td>
+            <td><input type="text" placeholder="Cargo (CBO) Acompanhante"></td>
+            <td><input type="text" placeholder="Destino da Ambulância"></td>
+            <td>
+                <select>
+                    <option value="Ambulância Básica">Ambulância Básica</option>
+                    <option value="Ambulância Avançada">Ambulância Avançada</option>
+                </select>
+            </td>
+            <td>
+                <select>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                </select>
+            </td>
+            <td>
+                <select>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                </select>
+            </td>
+            <td><input type="datetime-local"></td>
+            <td><input type="text" placeholder="Tempo Total"></td>
+            <td>
+                <select>
+                    <option value="Acolhimento demanda">Acolhimento demanda</option>
+                    <option value="Agendamento retorno">Agendamento retorno</option>
+                </select>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script type="module">
+    // Importar e inicializar Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+    import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAP0J-EGkNE_Kwz6wXNXJIIdcykqanJ7m8",
+        authDomain: "formularioremocoes.firebaseapp.com",
+        databaseURL: "https://formularioremocoes-default-rtdb.firebaseio.com",
+        projectId: "formularioremocoes",
+        storageBucket: "formularioremocoes.firebasestorage.app",
+        messagingSenderId: "688661548510",
+        appId: "1:688661548510:web:79ad8e3ccf11a399be614f",
+        measurementId: "G-DQWERESE27"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    // Salvar dados no Firebase
+    function saveData() {
+        const table = document.getElementById("dataTable").getElementsByTagName("tbody")[0];
+        const rows = Array.from(table.rows);
+        const data = rows.map(row => 
+            Array.from(row.cells).map(cell => 
+                cell.querySelector("input, select") ? cell.querySelector("input, select").value : ""
+            )
+        );
+
+        set(ref(database, "formulario/"), data)
+            .then(() => alert("Dados salvos com sucesso no Firebase!"))
+            .catch(err => alert("Erro ao salvar: " + err));
+    }
+
+    // Carregar dados do Firebase
+    function loadData() {
+        const dbRef = ref(database);
+        get(child(dbRef, "formulario/"))
+            .then(snapshot => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    const table = document.getElementById("dataTable").getElementsByTagName("tbody")[0];
+                    table.innerHTML = ""; // Limpa tabela existente
+
+                    data.forEach(rowData => {
+                        const row = table.insertRow();
+                        rowData.forEach(cellData => {
+                            const cell = row.insertCell();
+                            const input = document.createElement("input");
+                            input.type = "text";
+                            input.value = cellData;
+                            cell.appendChild(input);
+                        });
+                    });
+                    alert("Dados carregados com sucesso!");
+                } else {
+                    alert("Nenhum dado encontrado!");
+                }
+            })
+            .catch(err => alert("Erro ao carregar: " + err));
+    }
+</script>
+
+</body>
+</html>
